@@ -1,0 +1,73 @@
+@import '@c/style/color.scss';
+.webApp{
+    .conter{
+      width: 100%;
+      padding-top: 114px;
+      .box{
+        padding: 0 16px;
+        .lisBox{
+          border-radius: 6px;
+          background-color: $c0;
+          margin-top: 10px;
+          .title{
+            font-size: 16px;
+            padding:10px 16px;
+            font-family:PingFangSC-Semibold,PingFang SC;
+            font-weight:600;
+            color: $c15;
+            .address{
+              width: 70%;
+              line-height:25px;
+            }
+          }
+          .title1{
+            font-size: 15px;
+            line-height:40px;
+            padding:0 16px;
+            font-weight:400;
+            border-bottom: 1px solid $br-d;
+          }
+        }
+      }
+      .uls{
+        padding:0 16px;
+        .lis{
+          padding:10px 0;
+          border-bottom: 1px solid $c31;
+          .left{
+            width:20%;
+            p{
+              width:45px;
+              height:45px;
+              line-height:45px;
+              background:green;
+              border-radius: 50%;
+              text-align:center;
+              color:#fff;
+              font-size: 12px;
+            }
+            .red{
+              background:red;
+            }
+          }
+          .right{
+            width:10%;
+            height:50px;
+            line-height:50px;
+            text-align:right;
+            font-size: 14px;
+          }
+          .top{
+            width:70%;
+            height:50px;
+            text-align:left;
+            p{
+              line-height:25px;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    
+  }

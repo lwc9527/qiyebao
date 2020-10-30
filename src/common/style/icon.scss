@@ -1,0 +1,67 @@
+.add-row-icon {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+  margin-right: 5px;
+  background: url("~@/assets/images/add_icon_nor.svg") no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+
+    background: url("~@/assets/images/add_icon_sel.svg") no-repeat;
+    background-size: cover;
+  }
+}
+
+.del-row-icon {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+  margin-right: 5px;
+  background: url("~@/assets/images/delete_icon_nor.svg") no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-size: cover;
+    background: url("~@/assets/images/delete_icon_sel.svg") no-repeat;
+  }
+}
+
+//删除 错误状图标
+.delete-wrong-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url("~@/assets/images/delete_wrong_icon.svg") no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+
+//查看文件图标
+.view-file-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  background: url("~@/assets/images/viewfile_icon_nor.svg") no-repeat;
+  background-size: cover;
+}
+
+//上传按钮
+.upload-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  background: url("~@/assets/images/upload_icon_nor.svg") no-repeat top left;
+  background-size: cover;
+}

@@ -1,0 +1,324 @@
+@import "@c/style/common.scss";
+.m-form-feed {
+    .m-upload {
+        margin-left: 10%;
+    }
+    .zc_dialog .el-dialog {
+        width: 500px;
+    }
+    .zc_dialog .dialog-footer {
+        text-align: center;
+        margin: 20px auto 0;
+    }
+    .blankLine {
+        height: 16px;
+        width: 100%;
+        background: #F2F2F2;
+    }
+    .financBox {
+        background: #FBFCFD;
+        padding-top: 30px;
+        margin-bottom: 10px;
+        border: 1px solid #EBEBEB
+    }
+    .transferBox,
+    .markBox,
+    .receiptBox {
+        padding: 20px 0 0;
+    }
+    .el-form-item {
+        margin-bottom: 20px;
+    }
+    .el-form-item__content {
+        flex: 1;
+    }
+    .el-form-item__label {
+        color: #434F58;
+    }
+    .el-form-item__label {
+        color: #434F58;
+    }
+    textarea {
+        resize: none;
+    }
+    //输入框
+    .el-input__inner:hover {
+        border: 1px solid #6fb5ec;
+        color: #81838a;
+    }
+    //文本框
+    .el-textarea__inner {
+        color: #81838a;
+        &:hover {
+            border: 1px solid #6fb5ec;
+        }
+    }
+    .el-date-editor.el-input,
+    .el-date-editor.el-input__inner,
+    .el-select {
+        width: 100%;
+    }
+    .el-select-dropdown__item {
+        height: 45px;
+        line-height: 45px;
+    }
+    .delInv {
+        height: 16px;
+        margin-left: 5px;
+        cursor: pointer;
+        width: 16px;
+        display: inline-block;
+        background: url("~@a/images/form/dotdelet.svg");
+    }
+    // 下拉框
+    .selectStyle {
+        .el-input__inner:hover {
+            border: 1px solid #6fb5ec;
+            color: #81838a;
+        }
+        .el-input--suffix .el-input__inner:hover {
+            color: #434f58;
+        }
+        .el-input--suffix:hover {
+            .el-input__suffix-inner {
+                border-left: 1px solid #6fb5ec;
+            }
+            .el-icon-arrow-up {
+                content: url("~@a/images/form/down-hover.png");
+            }
+        }
+        .el-input.el-input--mini.el-input--suffix.is-focus,
+        .el-input.el-input--small.el-input--suffix.is-focus {
+            .el-input__suffix-inner {
+                height: 28px;
+                margin-top: 9px;
+                border-left: 1px solid #6fb5ec;
+                line-height: 32px;
+                padding: 0 8px;
+            }
+        }
+        .el-input__suffix-inner {
+            height: 28px;
+            margin-top: 9px;
+            border-left: 1px solid #dedede;
+            line-height: 32px;
+            padding: 0 8px;
+        }
+        .el-icon-arrow-up {
+            width: 12px;
+            height: 7px;
+            content: url("~@a/images/form/up.png");
+            transform: none;
+            &:hover {
+                width: 12px;
+                height: 7px;
+                content: url("~@a/images/form/down-hover.png");
+            }
+        }
+        .el-select .el-input .el-select__caret {
+            transform: none;
+        }
+        .el-select__caret.el-input__icon.el-icon-arrow-up.is-reverse {
+            transform: rotate(180deg);
+            content: url("~@a/images/form/down-hover.png");
+        }
+        .el-select-dropdown__item.hover,
+        .el-select-dropdown__item:hover {
+            background-color: #e7f1f8;
+            color: #434f58;
+        }
+    }
+    .radioStyle {
+        // 单选框
+        .el-radio__inner:hover {
+            background-color: #409EFF;
+        }
+    }
+    .datetimerangeStyle {
+        // 日期
+        .el-input__icon.el-icon-date,
+        .el-range-editor--small .el-range__icon {
+            width: 12px;
+            height: 13px;
+            content: url("~@a/images/form/date.png");
+        }
+    }
+    // 加减按钮框
+    .numInput {
+        .el-input-number--mini {
+            width: 112px;
+            .el-input-number__increase,
+            .el-input-number__decrease {
+                width: 26px;
+            }
+            .el-input__inner {
+                padding-left: 26px;
+                padding-right: 26px;
+            }
+        }
+    }
+    .dashed {
+        margin-top: 20px
+    }
+    .shortDash {
+        margin-top: 10px;
+        margin-bottom: -10px !important;
+        width: 88% !important;
+        margin-left: 6% !important;
+    }
+    // 发票的共用样式
+    .m-invoice-Infor {
+        .invoice_header {
+            width: 94%;
+            margin-left: 3%;
+            height: 40px;
+            background-color: #E7F1F8;
+            margin-top: 40px;
+            font-size: 18px;
+            color: #434f58;
+            cursor: default;
+            .el-form-item--mini .el-form-item__content,
+            .el-form-item--mini .el-form-item__label {
+                line-height: 40px
+            }
+        }
+        .content_container_wrapper .el-form-item--mini.el-form-item,
+        .content_container_wrapper .el-form-item--small.el-form-item {
+            margin: 4px 0 5px!important;
+        }
+        .content_container_wrapper {
+            width: 96%;
+            margin-left: 1%;
+            padding: 10px 1%;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            padding-top: 10px;
+            position: relative;
+            .dashed {
+                width: 94%;
+                margin-left: 3%;
+                margin-bottom: 10px;
+            }
+            .ml-52 {
+                margin-left: 52px;
+            }
+            .el-button+.el-button {
+                margin-left: 0;
+            }
+            .tag {
+                width: 60px;
+                height: 18px;
+                line-height: 18px;
+                text-align: center;
+                font-size: 11px;
+                color: #fff;
+                border-radius: 3px;
+                background-color: #E35F5F;
+                display: inline-block;
+                margin-left: 20px;
+                .triangle1 {
+                    width: 0;
+                    height: 0;
+                    border-width: 9px 9px 9px 0;
+                    border-style: solid;
+                    border-color: transparent #E35F5F transparent transparent;
+                    position: absolute;
+                    margin-left: -7px;
+                }
+            }
+            .triangle {
+                width: 0;
+                height: 0;
+                border-width: 0 25px 15px;
+                border-style: solid;
+                border-color: transparent transparent #FAFAFA;
+                position: absolute;
+                margin-left: 67%;
+                margin-top: -5px;
+            }
+            .content_container {
+                width: 88%;
+                margin-left: 5%;
+                background: #FAFAFA;
+                padding: 10px 1%;
+                margin-bottom: 10px;
+                margin-top: 20px;
+                box-shadow: 0 5px 7px 0 rgba(231, 231, 231, 0.50);
+                .solid {
+                    width: 86%;
+                    margin-left: 7%;
+                }
+                .invoice_wrapper {
+                    width: 100%;
+                    border: 1px solid #83CACE;
+                    .box1 {
+                        font-size: 13px;
+                        color: #28AAB2;
+                        border-right: 1px solid #28AAB2;
+                        text-align: center;
+                        height: 160px;
+                    }
+                    .box2 {
+                        height: 160px;
+                        border-right: 1px solid #28AAB2;
+                        padding-left: 20px;
+                        overflow-y: auto;
+                    }
+                    .box3 {
+                        font-size: 13px;
+                        color: #647987;
+                        height: 160px;
+                        padding: 10px 20px;
+                        box-sizing: border-box;
+                    }
+                    .table_list {
+                        border-top: 1px solid #28AAB2;
+                    }
+                    .box4 {
+                        border-top: 1px solid #28AAB2;
+                        border-bottom: 1px solid #28AAB2;
+                        background: #ECF7F7;
+                        padding-top: 7px;
+                    }
+                    .textarea-info {
+                        font-size: 13px;
+                    }
+                }
+                .table_box {
+                    height: 40px;
+                    line-height: 40px;
+                    padding: 0 15px;
+                    border-bottom: 1px solid #83CACE;
+                    .label {
+                        display: inline-block;
+                        width: 110px;
+                    }
+                    .content {
+                        display: inline-block;
+                    }
+                }
+                .last-child {
+                    border-bottom: none;
+                }
+                .lb {
+                    border-left: 1px solid #83CACE;
+                }
+                .big {
+                    height: 81px;
+                }
+                .middle {
+                    border-left: 1px solid #83CACE;
+                    text-align: center;
+                }
+                .label {
+                    font-size: 13px;
+                    color: #28AAB2;
+                }
+                .content {
+                    font-size: 13px;
+                    color: #274253;
+                }
+            }
+        }
+    }
+}

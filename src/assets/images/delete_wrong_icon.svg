@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>icon-delete-gray-nor</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-delete-gray-nor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval-2" fill="#C0C4CC" cx="9" cy="9" r="6"></circle>
+        <g id="Group-11" transform="translate(9.000000, 9.000000) rotate(-45.000000) translate(-9.000000, -9.000000) translate(6.000000, 6.000000)" stroke="#FFFFFF" stroke-width="0.6">
+            <path d="M3,0 L3,6" id="Path-52"></path>
+            <path d="M6,3 L0,3" id="Path-52-Copy"></path>
+        </g>
+    </g>
+</svg>

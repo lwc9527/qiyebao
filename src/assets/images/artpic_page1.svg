@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="191px" viewBox="0 0 130 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>artpic_page1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="81.6012415%" y1="-72.1160891%" x2="27.9006889%" y2="129.623863%" id="linearGradient-1">
+            <stop stop-color="#B3DFFF" offset="0.0105574324%"></stop>
+            <stop stop-color="#E3FEFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-49.1393604%" y1="397.491035%" x2="79.8771188%" y2="-90.6156431%" id="linearGradient-2">
+            <stop stop-color="#75E2FF" offset="0%"></stop>
+            <stop stop-color="#9BC0FB" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="31.1282499%" y1="397.491035%" x2="55.6872822%" y2="-90.6156431%" id="linearGradient-3">
+            <stop stop-color="#75E2FF" offset="0%"></stop>
+            <stop stop-color="#9BC0FB" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="31.6897659%" y1="397.491035%" x2="55.518061%" y2="-90.6156431%" id="linearGradient-4">
+            <stop stop-color="#75E2FF" offset="0%"></stop>
+            <stop stop-color="#9BC0FB" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="31.6908892%" y1="397.491035%" x2="55.5177225%" y2="-90.6156431%" id="linearGradient-5">
+            <stop stop-color="#75E2FF" offset="0%"></stop>
+            <stop stop-color="#9BC0FB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="东鹏登录页" transform="translate(-81.000000, -173.000000)">
+            <g id="artpic_page1" transform="translate(80.000000, 171.000000)">
+                <g transform="translate(65.000000, 96.500000) scale(-1, 1) translate(-65.000000, -96.500000) " id="编组">
+                    <g>
+                        <path d="M15,192.435 L0.882352941,184.238391 C0.335757231,183.920159 0,183.334905 0,182.702708 L0,178.715663 C0,178.068835 0.36561586,177.478094 0.944507637,177.189734 L2.45937602,176.435" id="Path" stroke="#93C8FC" stroke-width="0.6394" opacity="0.8"></path>
+                        <path d="M24.0395514,6.11363971 L19.3336691,3.55219944 C19.1514705,3.45275192 19.0395514,3.26985994 19.0395514,3.0722985 L19.0395514,1.82634689 C19.0395514,1.62421315 19.1614234,1.43960656 19.3543873,1.34949416 L19.8593435,1.11363971" id="Path备份" stroke="#93C8FC" stroke-width="0.6394" opacity="0.8" transform="translate(21.539551, 3.613640) scale(-1, 1) rotate(151.000000) translate(-21.539551, -3.613640) "></path>
+                        <circle id="XMLID_980_" fill="#C9EDFF" cx="34.859" cy="128.061" r="1.523"></circle>
+                        <circle id="XMLID_979_" fill="#C9EDFF" cx="125.166" cy="162.162" r="1.523"></circle>
+                        <circle id="XMLID_978_" fill="#C9EDFF" cx="87.74" cy="131.719" r="1.523"></circle>
+                        <circle id="XMLID_977_" fill="#C9EDFF" cx="66.846" cy="176.558" r="1.523"></circle>
+                        <circle id="XMLID_976_" fill="#C9EDFF" cx="121.768" cy="120.256" r="1.523"></circle>
+                        <circle id="XMLID_975_" fill="#C9EDFF" cx="38.877" cy="94.763" r="1.523"></circle>
+                        <circle id="XMLID_974_" fill="#C9EDFF" cx="63.665" cy="150.965" r="1.523"></circle>
+                        <circle id="XMLID_972_" fill="#C9EDFF" cx="68.546" cy="112.598" r="1.523"></circle>
+                        <circle id="XMLID_971_" fill="#C9EDFF" cx="126.866" cy="98.201" r="1.523"></circle>
+                        <circle id="XMLID_970_" fill="#C9EDFF" cx="65.366" cy="87.004" r="1.523"></circle>
+                        <circle id="XMLID_969_" fill="#C9EDFF" cx="89.44" cy="67.759" r="1.523"></circle>
+                        <circle id="XMLID_968_" fill="#C9EDFF" cx="36.56" cy="64.1" r="1.523"></circle>
+                        <circle id="XMLID_967_" fill="#C9EDFF" cx="47.073" cy="22.523" r="1.523"></circle>
+                        <circle id="XMLID_966_" fill="#C9EDFF" cx="123.291" cy="41.565" r="1.523"></circle>
+                        <g id="编组-2" transform="translate(77.793000, 54.929000)">
+                            <polygon id="Path" fill="url(#linearGradient-1)" points="13.454 76.592 1.10134124e-13 38.559 32.955 -1.70530257e-13 41.067 3.579 51.251 32.368"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-2)" points="41.067 3.579 36.225 9.245 32.955 -5.68434189e-14"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-3)" points="38.89 37.557 30.17 12.906 31.469 11.386 40.189 36.037"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-4)" points="36.363 44.871 25.369 13.793 26.668 12.274 37.661 43.352"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-4)" points="32.745 49.104 21.752 18.026 23.05 16.507 34.044 47.584"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-5)" points="29.127 53.337 18.134 22.259 19.433 20.739 30.426 51.817"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-4)" points="25.51 57.569 14.516 26.491 15.815 24.972 26.808 56.05"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-4)" points="21.892 61.802 10.899 30.724 12.197 29.205 23.191 60.283"></polygon>
+                            <polygon id="Path" fill="url(#linearGradient-4)" points="18.274 66.035 7.281 34.957 8.58 33.438 19.573 64.516"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

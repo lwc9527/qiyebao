@@ -1,0 +1,77 @@
+@import "@c/style/common.scss";
+
+// .formDetails {
+  .el-input__inner,
+  .el-textarea__inner {
+    color: #81838a;
+    font-family: PingFangSC-Regular;
+  }
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+  .el-form-item__content {
+    flex: 1;
+  }
+  .el-form-item__label {
+    color: #434f58;
+  }
+  .el-form-item__label {
+    color: #434f58;
+  }
+  textarea {
+    resize: none;
+  }
+  .el-date-editor.el-input,
+  .el-date-editor.el-input__inner,
+  .el-select {
+    width: 100%;
+  }
+  .el-select-dropdown__item {
+    height: 45px;
+    line-height: 45px;
+  }
+  .radioStyle {
+    // 单选框
+    .el-radio__inner:hover {
+      background-color: #409eff;
+    }
+    .el-radio__input.is-disabled:hover {
+      .el-radio__inner {
+        background-color: transparent;
+      }
+    }
+  }
+  .datetimerangeStyle {
+    // 日期
+    .el-input__icon.el-icon-date,
+    .el-input__icon.el-icon-time,
+    .el-range-editor--small .el-range__icon {
+      width: 12px;
+      height: 13px;
+      content: url("~@a/images/form/date.png");
+    }
+  }
+  // 加减按钮框
+  .numInput {
+    .el-input-number--mini {
+      width: 112px;
+      .el-input-number__increase,
+      .el-input-number__decrease {
+        width: 26px;
+      }
+      .el-input__inner {
+        padding-left: 26px;
+        padding-right: 26px;
+      }
+    }
+  }
+  .m-upload{
+    .upload {
+      margin: 5px 0px 25px 0;
+    }
+  }
+ 
+  .info-content{
+    color:#16222B;
+  }
+// }

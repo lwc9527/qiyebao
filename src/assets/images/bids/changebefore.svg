@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="21px" viewBox="0 0 61 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>tag_delete copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="项目管理-内部立项-项目详情-立项信息-施工合同变更审批(悬停)" transform="translate(-334.000000, -432.000000)">
+            <g id="slices&lt;v16&gt;" transform="translate(266.000000, 337.000000)">
+                <g id="more&lt;v10&gt;" transform="translate(0.000000, 36.000000)">
+                    <g id="&lt;v8&gt;">
+                        <g id="mask">
+                            <g id="deleteline" transform="translate(20.000000, 12.000000)">
+                                <g id="&lt;h20&gt;">
+                                    <g id="编组-3" transform="translate(48.000000, 0.000000)">
+                                        <g id="tag_delete" transform="translate(0.000000, 47.000000)">
+                                            <path d="M8.99437024,0.6 C8.23322365,0.6 7.51353582,0.946752786 7.0391961,1.54202243 L0.468078957,9.78840449 C0.32279206,9.97073136 0.32279206,10.2292686 0.468078957,10.4115955 L7.0391961,18.6579776 C7.51353582,19.2532472 8.23322365,19.6 8.99437024,19.6 L57,19.6 C58.3807119,19.6 59.5,18.4807119 59.5,17.1 L59.5,3.1 C59.5,1.71928813 58.3807119,0.6 57,0.6 L8.99437024,0.6 Z" id="Rectangle-14-Copy-5" stroke="#F5BABA" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" transform="translate(30.000000, 10.100000) scale(-1, -1) translate(-30.000000, -10.100000) "></path>
+                                            <text id="冲回" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#E37070">
+                                                <tspan x="6" y="15.1">修改前</tspan>
+                                            </text>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
