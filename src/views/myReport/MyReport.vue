@@ -11,6 +11,103 @@
           <div class="item-title"><span class="icon el-icon-s-home"></span>保单损失情况信息</div>
           <el-row style="padding: 0 10px">
             <el-col :span="24">
+              <div class="base-w">保单号：</div>
+              <el-input
+                clearable
+                maxlength="21"
+                v-model="loginParams.policyNo"
+                placeholder="请输入保单号"
+              ></el-input>
+            </el-col>
+            
+            <el-col :span="24">
+                <div class="base-w">损失类型：</div>
+                <el-checkbox-group v-model="loginParams.checkList">
+                  <el-checkbox label="人伤">人伤</el-checkbox>
+                  <el-checkbox label="物损">物损</el-checkbox>
+                  <el-checkbox label="车损">车损</el-checkbox>
+                </el-checkbox-group>
+            </el-col>
+            <el-col :span="24">
+                <div class="base-w">出险原因：</div>
+                <el-col :span="9">
+                  <el-select v-model="loginParams.reason" placeholder="请选择" @change="getChange">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="12">
+                  <el-select v-model="loginParams.reason2" placeholder="请选择" @change="getChange">
+                    <el-option
+                      v-for="item in optionsTwo"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-col>
+            </el-col>
+            
+            <el-col :span="24">
+                <div class="base-w">出险时间：</div>
+                <el-date-picker
+                  class="time_pick"
+                  v-model="loginParams.date"
+                  type="datetime"
+                  placeholder="选择日期">
+                </el-date-picker>
+            </el-col>
+            <el-col :span="24">
+                <div class="base-w">出险地点：</div>
+                <div class="base-ws" :class="{active:loginParams.areaListvalue}" @click="choose">{{loginParams.areaListvalue?loginParams.areaListvalue:"请选择省市区"}}</div>
+                <div class="el-select">
+                    <span class="icon el-icon-arrow-up"></span> 
+                </div>
+            </el-col>
+            <el-col :span="24">
+                <div class="base-w">详细地址：</div>
+                <el-input
+                  clearable
+                  v-model="loginParams.accidentPlace"
+                  placeholder="请输入详细地址"
+                ></el-input>
+            </el-col>
+            <el-col :span="24" class="">
+                <div class="base-w">出险经过：</div>
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="loginParams.accidentProcess">
+                </el-input>
+            </el-col>
+            <el-col :span="24">
+              <div class="base-w">报损金额：</div>
+              <!-- <el-col :span="14"> -->
+                <el-input
+                  clearable
+                  style="width:50px;"
+                  type="Number"
+                  maxlength="16"
+                  v-model="loginParams.money"
+                  placeholder="请输入报损金额"
+                ></el-input>
+                
+                <el-select v-model="loginParams.unit">
+                  <el-option 
+                    style="width:50px;"
+                    v-for="item in units"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+            </el-col>
+            <el-col :span="24">
                 <div class="base-w">报案人：</div>
                 <el-input
                   clearable
@@ -19,119 +116,11 @@
                 ></el-input>
             </el-col>
             <el-col :span="24">
-              <div class="base-w">保单号：</div>
-              <el-input
-                clearable
-                v-model="loginParams.house_resources_address"
-                placeholder="请输入保单号"
-              ></el-input>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">手机号：</div>
+                <div class="base-w">联系电话：</div>
                 <el-input
                   clearable
                   v-model="loginParams.house_resources_address"
-                  placeholder="请输入报案人联系电话"
-                ></el-input>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">出险地点：</div>
-                <div class="base-ws" :class="{active:loginParams.areaListvalue}" @click="choose">{{loginParams.areaListvalue?loginParams.areaListvalue:"请选择省市区"}}</div>
-                <div class="el-select">
-                    <span class="icon el-icon-arrow-up"></span> 
-                </div>
-                <!-- <el-cascader
-                  v-model="loginParams.areaListvalue"
-                  :options="cascadeMap"
-                  @change="handleChange">
-                </el-cascader> -->
-            </el-col>
-            <el-col :span="24" class="">
-                <div class="base-w">出险经过：</div>
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="loginParams.content">
-                </el-input>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">出险原因一级：</div>
-                <el-select v-model="loginParams.business_type" placeholder="请选择" @change="getChange">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">出险原因二级：</div>
-                <el-select v-model="loginParams.business_type2" placeholder="请选择" @change="getChange">
-                  <el-option
-                    v-for="item in optionsTwo"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-            </el-col>
-
-            <el-col :span="24">
-                <div class="base-w">损失标的：</div>
-                <el-checkbox v-model="loginParams.checkList">备选项</el-checkbox>
-                <el-checkbox v-model="loginParams.checkList">备选项</el-checkbox>
-                <!-- <el-checkbox-group v-model="loginParams.checkList">
-                  <el-checkbox label="复选框 A"></el-checkbox>
-                  <el-checkbox label="复选框 B"></el-checkbox>
-                  <el-checkbox label="复选框 C"></el-checkbox>
-                  <el-checkbox label="禁用" disabled></el-checkbox>
-                  <el-checkbox label="选中且禁用" disabled></el-checkbox>
-                </el-checkbox-group> -->
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">损失情况描述：</div>
-                <el-input
-                  type="textarea"
-                  :rows="2"
-                  placeholder="请输入内容"
-                  v-model="loginParams.content">
-                </el-input>
-            </el-col>
-            <el-col :span="24">
-              <div class="base-w">报损金额：</div>
-              <el-col :span="14">
-                <el-input
-                  clearable
-                  v-model="loginParams.house_resources_address"
-                  placeholder="请输入报损金额"
-                ></el-input>
-              </el-col>
-              <el-col :span="9">
-                <el-select v-model="loginParams.unit">
-                  <el-option
-                    v-for="item in units"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-col>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">是否愿意自主理赔：</div>
-                <el-select v-model="loginParams.isSelf">
-                  <el-option value="Y" label="是"></el-option>
-                  <el-option value="N" label="否"></el-option>
-                </el-select>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">备注：</div>
-                <el-input
-                  clearable
-                  v-model="loginParams.house_resources_address"
-                  placeholder="请输入备注"
+                  placeholder="请输入联系电话"
                 ></el-input>
             </el-col>
            
@@ -140,7 +129,7 @@
       </div>
       
       <div class="query_btn">
-        <div @click="query">提交</div>
+        <div @click="submit">提交</div>
       </div>
       <!-- <div class="footer">
         <div class="vh-center">
@@ -165,9 +154,21 @@ export default {
       num:this.$route.query.num,
       loginParams: {
         checkList: [],
+        reason: '',
+        reason2: '',
+        policyNo: '', // 保单号
+        accidentProcess: '', // 经过
+        reporterName: '', // 报案人
+        accidentPlace: '', // 出险详细地址
         province:'广东省',
         city:'深圳市',
         county:'宝安区',
+        accidentProvince: '', // 出险地点省
+        accidentCity: '', // 出险地点市
+        accidentDistrict: '', // 出险地点区县
+        accidentDate: '', // 出险时间
+        money: '',
+
         areaListvalue:"",  
         house_resources_address: "",
         house_num: "",
@@ -178,11 +179,13 @@ export default {
         floor: "",    //楼层
         status: 1,    //1正常0停用
         unit: 'RMB',
-        isSelf: 'Y'
+        isSelf: 'Y',
+        date: ''
       },
       options: [
         {value: "A61",label: '火灾'}, 
-        {value: "A62",label: '爆炸'}
+        {value: "A62",label: '爆炸'},
+        {value: "A63",label: '意外事故'}
       ],
       optionsTwo: [
         {value: "N0160",label: '火灾'}, 
@@ -191,6 +194,22 @@ export default {
         {value: "N0451",label: '锅炉爆炸'},
         {value: "N0452",label: '容器爆炸'},
         {value: "N0453",label: '其他爆炸'}
+      ],
+      sudden: [
+        {value: "N0405",label: '物体打击'}, 
+        {value: "N0406",label: '车辆伤害'},
+        {value: "N0404",label: '机械伤害'},
+        {value: "N0454",label: '起重伤害'},
+        {value: "N0455",label: '触电'},
+        {value: "N0456",label: '淹溺'},
+        {value: "N0457",label: '灼烫'},
+        {value: "N0395",label: '高处坠落'},
+        {value: "N0458",label: '坍塌'},
+        {value: "N0459",label: '冒顶片帮'},
+        {value: "N0460",label: '透水'},
+        {value: "N0461",label: '放炮'},
+        {value: "N0462",label: '中毒和窒息'},
+        {value: "N0463",label: '其他伤害'}
       ],
       options1: [
         {value: 1,label: '正常'}, 
@@ -609,7 +628,7 @@ export default {
 }
 
 ::v-deep .el-textarea {
-  margin-left: 28px;
+  padding-left: 28px;
   .el-textarea__inner {
     border: none;
     resize: none;
@@ -688,4 +707,9 @@ export default {
     color: #000;
   }
 
+</style>
+<style>
+  .el-picker-panel .el-picker-panel__body-wrapper .el-time-panel {
+      left: -15px;
+  }
 </style>
