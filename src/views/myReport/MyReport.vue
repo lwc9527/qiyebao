@@ -8,7 +8,7 @@
       </div>
       <div class="webApp-body">
         <div class="main-content">
-          <div class="item-title"><span class="icon el-icon-s-home"></span>保单损失情况信息</div>
+          <div class="item-title"><span class="icon el-icon-s-home"></span>安全生产责任险</div>
           <el-row style="padding: 0 10px">
             <el-col :span="24">
               <div class="base-w">保单号：</div>
@@ -87,31 +87,31 @@
             </el-col>
             <el-col :span="24">
               <div class="base-w">报损金额：</div>
-              <!-- <el-col :span="14"> -->
+              <el-col :span="12">
                 <el-input
                   clearable
-                  style="width:50px;"
                   type="Number"
                   maxlength="16"
-                  v-model="loginParams.money"
+                  v-model="loginParams.reportLossSum"
                   placeholder="请输入报损金额"
                 ></el-input>
-                
+              </el-col>
+              <el-col :span="8">
                 <el-select v-model="loginParams.unit">
                   <el-option 
-                    style="width:50px;"
                     v-for="item in units"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
                   </el-option>
                 </el-select>
+              </el-col>
             </el-col>
             <el-col :span="24">
                 <div class="base-w">报案人：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.house_resources_address"
+                  v-model="loginParams.reporterName"
                   placeholder="请输入报案人姓名"
                 ></el-input>
             </el-col>
@@ -119,7 +119,7 @@
                 <div class="base-w">联系电话：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.house_resources_address"
+                  v-model="loginParams.tell"
                   placeholder="请输入联系电话"
                 ></el-input>
             </el-col>
@@ -167,7 +167,8 @@ export default {
         accidentCity: '', // 出险地点市
         accidentDistrict: '', // 出险地点区县
         accidentDate: '', // 出险时间
-        money: '',
+        reportLossSum: '',
+        tell: '',
 
         areaListvalue:"",  
         house_resources_address: "",
@@ -352,7 +353,7 @@ export default {
     div {
       display: inline-block;
       line-height: 40px;
-      width: 60%;
+      width: 90%;
       color: #fff;
       font-size: 16px;
       background: linear-gradient(90deg, rgba(255,102,0,.5), rgba(255,102,0,1));
@@ -390,8 +391,8 @@ export default {
     // border-radius: 16px;
     .item-title{
         padding-left: 20px;
-        height: 40px;
-        line-height: 40px;
+        height: 60px;
+        line-height: 60px;
         background: linear-gradient(90deg, rgba(255, 102, 0, 0.5), #ff6600);
         color: #fff;
         font-size: 16px;
