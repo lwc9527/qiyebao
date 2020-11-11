@@ -36,4 +36,14 @@ export default {
     //房租单
     Showbill: "/system/login/Showbill", //房租列表数据
 
+
+    // 报案对接接口
+    my_report: "/interface/claim/saveReportInfo",
+    
+    // 附件补传接口
+    upload_file: "/interface/claim/fileUpload",
+    
+    // 案件查询接口
+    query_case: "/interface/claim/queryCaseInfoList"
+
 };

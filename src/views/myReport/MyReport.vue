@@ -11,52 +11,37 @@
           <div class="item-title"><span class="icon el-icon-s-home"></span>安全生产责任险</div>
           <el-row style="padding: 0 10px">
             <el-col :span="24">
-              <div class="base-w">保单号：</div>
-              <el-input
-                clearable
-                maxlength="21"
-                v-model="loginParams.policyNo"
-                placeholder="请输入保单号"
-              ></el-input>
+                <div class="base-w">保单号：</div>
+                <el-input
+                  clearable
+                  maxlength="21"
+                  v-model="loginParams.policyNo"
+                  placeholder="请输入保单号"
+                ></el-input>
             </el-col>
-            
             <el-col :span="24">
                 <div class="base-w">损失类型：</div>
-                <el-checkbox-group v-model="loginParams.checkList">
-                  <el-checkbox label="人伤">人伤</el-checkbox>
-                  <el-checkbox label="物损">物损</el-checkbox>
-                  <el-checkbox label="车损">车损</el-checkbox>
+                <el-checkbox-group v-model="loginParams.lossType" @change="clickType">
+                  <el-checkbox label="1">人伤</el-checkbox>
+                  <el-checkbox label="2">物损</el-checkbox>
+                  <el-checkbox label="3">车损</el-checkbox>
                 </el-checkbox-group>
             </el-col>
             <el-col :span="24">
                 <div class="base-w">出险原因：</div>
-                <el-col :span="9">
-                  <el-select v-model="loginParams.reason" placeholder="请选择" @change="getChange">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-col>
-                <el-col :span="12">
-                  <el-select v-model="loginParams.reason2" placeholder="请选择" @change="getChange">
-                    <el-option
-                      v-for="item in optionsTwo"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-col>
+                <el-cascader
+                    v-model="reason"
+                    :options="opts"
+                    @change="getReason">
+                </el-cascader>
             </el-col>
             
             <el-col :span="24">
                 <div class="base-w">出险时间：</div>
                 <el-date-picker
                   class="time_pick"
-                  v-model="loginParams.date"
+                  format="yyyy-MM-dd HH:mm:ss"
+                  v-model="date"
                   type="datetime"
                   placeholder="选择日期">
                 </el-date-picker>
@@ -87,8 +72,9 @@
             </el-col>
             <el-col :span="24">
               <div class="base-w">报损金额：</div>
-              <el-col :span="12">
+              <el-col :span="14">
                 <el-input
+                  @input="onlyNum(loginParams.reportLossSum,'reportLossSum')"
                   clearable
                   type="Number"
                   maxlength="16"
@@ -96,9 +82,11 @@
                   placeholder="请输入报损金额"
                 ></el-input>
               </el-col>
+              <el-col :span="1">|</el-col>
               <el-col :span="8">
-                <el-select v-model="loginParams.unit">
+                <el-select v-model="loginParams.lossCurrencyCode">
                   <el-option 
+                    style="font-size:12px;"
                     v-for="item in units"
                     :key="item.value"
                     :label="item.label"
@@ -119,7 +107,8 @@
                 <div class="base-w">联系电话：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.tell"
+                  maxlength="11"
+                  v-model="loginParams.reporterTel"
                   placeholder="请输入联系电话"
                 ></el-input>
             </el-col>
@@ -152,158 +141,214 @@ export default {
   data() {
     return {
       num:this.$route.query.num,
+      reason: '',
       loginParams: {
-        checkList: [],
-        reason: '',
-        reason2: '',
         policyNo: '', // 保单号
         accidentProcess: '', // 经过
         reporterName: '', // 报案人
         accidentPlace: '', // 出险详细地址
+        accidentProcess: '', // 出险经过
+        accidentCauseLevel1: '', // 一级原因
+        accidentCauseLevel2: '', // 二级原因
+        isCargoLoss: 'N', // 是否物损 Y—是,N—否
+        isInjured: 'N', // 是否人伤 Y—是,N—否
+        isCarLoss: 'N', // 是否车损 Y—是,N—否
+        lossType: [], // 损失类型 【1人伤,2物损,3车损】
+        cargoLossDetail: '', // 物损详情 有物损时默认传【ZRBDSP0001, ZRBDSP008】
+        injuredDetail: '', // 人伤详情
+        reportLossSum: '', // 报损金额【非负数且最长16位】
+        lossCurrencyCode: '01', // 损失币种【01人民币02港元 03美元,默认传01】
+        isSelfClaim: 'Y', // 客户意愿【Y--用户自助理赔,N--非用户自助理赔,默认传Y】
+        userId: 'NJAZX00001', // 出险经过
+        reportMode: 'F', // 报案方式【与外部第三方对接，默认F】
+        reporterTel: '', // 报案人联系电话
+        accidentProvinceCode: '', // 出险地点省
+        accidentCityCode: '', // 出险地点市
+        accidentCountyCode: '', // 出险地点区县
+        accidentDate: '', // 出险时间【格式yyyy-mm-dd hh24:mi:ss】
+
         province:'广东省',
         city:'深圳市',
         county:'宝安区',
-        accidentProvince: '', // 出险地点省
-        accidentCity: '', // 出险地点市
-        accidentDistrict: '', // 出险地点区县
-        accidentDate: '', // 出险时间
-        reportLossSum: '',
-        tell: '',
 
-        areaListvalue:"",  
-        house_resources_address: "",
-        house_num: "",
-        business_type: 'A61',
-        business_type2: '',  //商业类型 1居住 2商铺 3厂房 4办公 5仓库 6其他',
-        advance_day: "",    //收租日
-        content: "",    //备注
-        floor: "",    //楼层
-        status: 1,    //1正常0停用
-        unit: 'RMB',
-        isSelf: 'Y',
-        date: ''
+        areaListvalue:""
       },
-      options: [
-        {value: "A61",label: '火灾'}, 
-        {value: "A62",label: '爆炸'},
-        {value: "A63",label: '意外事故'}
-      ],
-      optionsTwo: [
-        {value: "N0160",label: '火灾'}, 
-        {value: "N0449",label: '火药爆炸'},
-        {value: "N0450",label: '瓦斯爆炸'},
-        {value: "N0451",label: '锅炉爆炸'},
-        {value: "N0452",label: '容器爆炸'},
-        {value: "N0453",label: '其他爆炸'}
-      ],
-      sudden: [
-        {value: "N0405",label: '物体打击'}, 
-        {value: "N0406",label: '车辆伤害'},
-        {value: "N0404",label: '机械伤害'},
-        {value: "N0454",label: '起重伤害'},
-        {value: "N0455",label: '触电'},
-        {value: "N0456",label: '淹溺'},
-        {value: "N0457",label: '灼烫'},
-        {value: "N0395",label: '高处坠落'},
-        {value: "N0458",label: '坍塌'},
-        {value: "N0459",label: '冒顶片帮'},
-        {value: "N0460",label: '透水'},
-        {value: "N0461",label: '放炮'},
-        {value: "N0462",label: '中毒和窒息'},
-        {value: "N0463",label: '其他伤害'}
-      ],
-      options1: [
-        {value: 1,label: '正常'}, 
-        {value: 0,label: '停用'}, 
+      opts: [
+          {
+            value: "A61",
+            label: '火灾',
+            children: [
+                { value: "N0160", label: '火灾' }
+            ]
+          },
+          {
+            value: "A62",
+            label: '爆炸',
+            children: [
+                {value: "N0449",label: '火药爆炸'},
+                {value: "N0450",label: '瓦斯爆炸'},
+                {value: "N0451",label: '锅炉爆炸'},
+                {value: "N0452",label: '容器爆炸'},
+                {value: "N0453",label: '其他爆炸'}
+            ]
+          },
+          {
+            value: "A63",
+            label: '意外事故',
+            children: [
+                {value: "N0405",label: '物体打击'}, 
+                {value: "N0406",label: '车辆伤害'},
+                {value: "N0404",label: '机械伤害'},
+                {value: "N0454",label: '起重伤害'},
+                {value: "N0455",label: '触电'},
+                {value: "N0456",label: '淹溺'},
+                {value: "N0457",label: '灼烫'},
+                {value: "N0395",label: '高处坠落'},
+                {value: "N0458",label: '坍塌'},
+                {value: "N0459",label: '冒顶片帮'},
+                {value: "N0460",label: '透水'},
+                {value: "N0461",label: '放炮'},
+                {value: "N0462",label: '中毒和窒息'},
+                {value: "N0463",label: '其他伤害'}
+            ]
+          }
       ],
       cascadeMap:cascadeMap.cascade,
       loading: false,
       flag: true,
       show:false,
       units:[
-        {label: '人民币', value: 'RMB'},
-        {label: '美元', value: '$'}
-      ]
+        {label: '人民币', value: '01'},
+        {label: '港元', value: '02'},
+        {label: '美元', value: '03'}
+      ],
+      date: ''
     };
   },
   created() {
   },
   mounted() {},
   methods: {
-    handleChange(value) {
-      console.log(value);
+    clickType(val){
+      this.loginParams.isCargoLoss = 'N';// 是否物损 Y—是,N—否
+      this.loginParams.isInjured = 'N';// 是否人伤 Y—是,N—否
+      this.loginParams.isCarLoss = 'N';// 是否车损 Y—是,N—否
+      // 1人伤,2物损,3车损
+      if(val.includes('1')){
+        this.loginParams.isInjured = 'Y';
+      }else if(val.includes('2')){
+        this.loginParams.isCargoLoss = 'Y';
+      }else if(val.includes('3')){
+        this.loginParams.isCarLoss = 'Y';
+      }
+    },
+    getReason(value){
+       const [accidentCauseLevel1, accidentCauseLevel2] = value;
+       this.form = {
+          ...this.form,
+          accidentCauseLevel1,
+          accidentCauseLevel2
+       }
     },
     choose(){
       this.show=!this.show
     },
     onChangeProvince(a){
-      this.loginParams.province = a.value;  
-      console.log(this.province)    
+      console.log('province',a)
+      this.loginParams.accidentProvinceCode = a.code;
+      this.loginParams.province = a.value;
     },
     onChangeCity(a){
-      this.loginParams.city = a.value;  
-      console.log(this.city)  
+      console.log('city',a)
+      this.loginParams.accidentCityCode = a.code;
+      this.loginParams.city = a.value; 
     },
     onChangeArea(a){
+      console.log('county',a)
+      this.loginParams.accidentCountyCode = a.code;
       this.loginParams.county = a.value;  
       this.loginParams.areaListvalue =this.loginParams.province+','+this.loginParams.city+','+this.loginParams.county;
-      console.log("a-------------",this.county) 
-       
+      
       this.show=false
     },     
     submit(){   //保存
-      let { loginParams,$http, $utils } = this;
+      let { loginParams,$http, $utils, $api } = this;
+      loginParams.accidentDate = $utils.timeFormat(this.date);
+      console.log('form', loginParams)
+
       if(!this.transmitOk()){
         return
       }
-      if(!this.flag){
-        return
-      }
-      this.flag = false;
-      this.loading = true;
-      let url = this.num==1? this.$api.addHouse :this.$api.editHouse; 
-      $http.postNew(url,loginParams)
-        .then(res=>{
-          this.loading = false;
-          if(this.num==1){
-            this.$message.success("保存成功")
-          }else{
-            this.$message.success("编辑成功")
-          }
-          this.$router.push({ path:'/rentResources'})
-        })
-        .catch(req=>{
+      // if(!this.flag){
+      //   return
+      // }
+      // this.flag = false;
+      // this.loading = true;
+      console.log('form', $api)
+      $http.postNew($api.my_report,loginParams).then(res=>{
+          // this.loading = false;
+          // if(this.num==1){
+          //   this.$message.success("保存成功")
+          // }else{
+          //   this.$message.success("编辑成功")
+          // }
+      }).catch(req=>{
           this.loading= false;
           this.flag = true;
-        })
+      })
     },
     transmitOk(){
-      if(!this.loginParams.house_resources_address){
-        this.$message.error("请填写地址")  
+      const { reason, loginParams, date  } = this;
+      if(!loginParams.policyNo){
+        this.$message.error("请填写保单号")
         return
       }
-      if(!this.loginParams.house_num){
-        this.$message.error("请填写房号")
+      if(loginParams.lossType.length == 0){
+        this.$message.error("请选择损失类型")
         return
       }
-      if(!this.loginParams.floor){
-        this.$message.error("请填写楼层")
+      if(!reason){
+        this.$message.error("请填写出险原因")
+        return
+      }
+      if(!date){
+        this.$message.error("请填写出险时间")
+        return
+      }
+      if(!loginParams.areaListvalue){
+        this.$message.error("请选择出险地点")
+        return
+      }
+      if(!loginParams.accidentPlace){
+        this.$message.error("请填写详细地址")
+        return
+      }
+      if(!loginParams.accidentProcess){
+        this.$message.error("请填写出险经过")
+        return
+      }
+      if(!loginParams.reportLossSum){
+        this.$message.error("请填写报损金额")
+        return
+      }
+      if(!loginParams.reporterName){
+        this.$message.error("请填写报案人")
+        return
+      }
+      if(!loginParams.reporterTel){
+        this.$message.error("请填写联系电话")
         return
       }
       return true;
     },
-    getChange(){
-      if(this.loginParams.business_type !=1){
-        this.loginParams.houseType = ""
-      }
-    },
-   
     checkBusinessLicense(e, type) {
       //不允许输入中文
       this.loginParams[type] = this.$utils.formatNotChinese(e);
     },
     onlyNum(val,name){  //限制输入数字，其它的都不可以输入
-        val=val.replace(/[^\d]/g,'');
+        // const reg = /[^0-9]*/g;
+        const reg = /[^\d]/g;
+        val=val.replace(reg,'');
         this.loginParams[name] = val;
     }, 
     ruleNum (val,name) { //限制输入数值
@@ -333,9 +378,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.el-input__inner{
-  line-height: 100px !important;
+// .el-input__inner{
+//   line-height: 100px !important;
+// }
 
+// 人民币css
+::v-deep .el-input--suffix .el-input__inner {
+  font-size: 14px;
 }
 .webApp {
   background: #fff;
@@ -706,6 +755,17 @@ export default {
   }
   .divwrap>>>.address-container .active{
     color: #000;
+  }
+
+  ::v-deep input::-webkit-input-placeholder,
+  ::v-deep textarea::-webkit-input-placeholder{
+    font-size: 14px;
+  }
+  ::v-deep input::-ms-input-placeholder{
+    font-size: 14px;
+  }
+  ::v-deep input::-moz-placeholder{
+    font-size: 14px;
   }
 
 </style>

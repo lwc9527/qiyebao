@@ -9,7 +9,10 @@
 const config = {
     development: {
         //开发
-        "/system": "http://193.112.94.202/system", //人力资源和用户信息模块
+        // "/system": "http://193.112.94.202/system", //人力资源和用户信息模块
+        // "/system": "https://edis.njyjgl.cn/", //人力资源和用户信息模块
+
+        "/system": "https://test-api.pingan.com.cn:20443/open/appsvr/property/",
     },
     test: {
         //测试

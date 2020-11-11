@@ -9,25 +9,59 @@
       <div class="webApp-body">
         <div class="main-content">
           <div class="item-title">
-            <!-- <span class="icon el-icon-s-home"></span> -->
             安全生产责任险
           </div>
-          <el-row style="padding: 0 10px">
+          <el-row>
+            <el-col :span="4" :offset="1">
+                <span class="label_">保单号：</span>
+            </el-col>
+            <el-col :span="16">
+              <el-input 
+                v-model="params.policyNo"
+                placeholder="请输入保单号">
+              </el-input>
+            </el-col>
+            <el-col :span="4" :offset="1">
+                <span class="label_">报案号：</span>
+            </el-col>
+            <el-col :span="16">
+              <el-input 
+                v-model="params.reportNo"
+                placeholder="请输入报案号">
+              </el-input>
+            </el-col>
+
+            <!-- <el-input 
+              v-model="params.policyNo"
+               prefix-icon="el-icon-search" 
+               placeholder="请输入保单号">
+            </el-input>
+            <el-input 
+              v-model="params.reportNo"
+               prefix-icon="el-icon-search" 
+               placeholder="请输入报案号">
+            </el-input> -->
+            <div class="query_btn">
+                <div @click="queryList">查询</div>
+            </div>
+          </el-row>
+
+          <el-row style="padding: 0 10px" v-if="false">
             <el-col :span="24">
               <div class="base-w">保单号：</div>
               <el-input
                 clearable
                 maxlength="21"
-                v-model="loginParams.policyNo"
+                v-model="form.policyNo"
                 placeholder="请输入保单号"
               ></el-input>
             </el-col>
             <el-col :span="24">
-              <div class="base-w">报案号(案件号)：</div>
+              <div class="base-w">报案号：</div>
               <el-input
                 clearable
                 maxlength="21"
-                v-model="loginParams.policyNo"
+                v-model="form.policyNo"
                 placeholder="请输入保单号"
               ></el-input>
             </el-col>
@@ -35,7 +69,7 @@
                 <div class="base-w">报案人：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.reporterName"
+                  v-model="form.reporterName"
                   placeholder="请输入报案人姓名"
                 ></el-input>
             </el-col>
@@ -43,14 +77,14 @@
                 <div class="base-w">报案时间：</div>
                 <el-date-picker
                   class="time_pick"
-                  v-model="loginParams.date"
+                  v-model="form.date"
                   type="datetime"
                   placeholder="选择日期">
                 </el-date-picker>
             </el-col>
             <el-col :span="24">
                 <div class="base-w">案件状态：</div>
-                <el-select v-model="loginParams.reason" placeholder="请选择" @change="getChange">
+                <el-select v-model="form.caseStatus" placeholder="请选择" @change="getChange">
                   <el-option
                     v-for="item in states"
                     :key="item.id"
@@ -63,13 +97,13 @@
                 <div class="base-w">被保险人：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.reporterName"
+                  v-model="form.reporterName"
                   placeholder="请输入报案人姓名"
                 ></el-input>
             </el-col>
             <el-col :span="24">
                 <div class="base-w">出险地点：</div>
-                <div class="base-ws" :class="{active:loginParams.areaListvalue}" @click="choose">{{loginParams.areaListvalue?loginParams.areaListvalue:"请选择省市区"}}</div>
+                <div class="base-ws" :class="{active:form.areaListvalue}" @click="choose">{{form.areaListvalue?form.areaListvalue:"请选择省市区"}}</div>
                 <div class="el-select">
                     <span class="icon el-icon-arrow-up"></span> 
                 </div>
@@ -78,7 +112,7 @@
                 <div class="base-w">详细地址：</div>
                 <el-input
                   clearable
-                  v-model="loginParams.accidentPlace"
+                  v-model="form.accidentPlace"
                   placeholder="请输入详细地址"
                 ></el-input>
             </el-col>
@@ -86,7 +120,7 @@
                 <div class="base-w">出险时间：</div>
                 <el-date-picker
                   class="time_pick"
-                  v-model="loginParams.date"
+                  v-model="date"
                   type="datetime"
                   placeholder="选择日期">
                 </el-date-picker>
@@ -97,14 +131,14 @@
                   type="textarea"
                   :rows="2"
                   placeholder="请输入内容"
-                  v-model="loginParams.accidentProcess">
+                  v-model="form.accidentProcess">
                 </el-input>
             </el-col>
             <el-col :span="24">
                 <div class="base-w">结案时间：</div>
                 <el-date-picker
                   class="time_pick"
-                  v-model="loginParams.date"
+                  v-model="enDdate"
                   type="datetime"
                   placeholder="选择日期">
                 </el-date-picker>
@@ -115,84 +149,55 @@
                 clearable
                 type="Number"
                 maxlength="16"
-                v-model="loginParams.reportLossSum"
+                v-model="form.endCaseAmountSum"
                 placeholder="请输入金额"
               ></el-input>
-            </el-col>
-            <el-col :span="24">
-                <div class="base-w">资料上传：</div>
-                <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    list-type="picture-card"
-                    width="50"
-                    height="50"
-                    :on-preview="handlePictureCardPreview"
-                    :on-remove="handleRemove">
-                    <i class="el-icon-plus"></i>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                    <img width="60%" :src="dialogImageUrl" alt="">
-                </el-dialog>
             </el-col>
 
           </el-row>
         </div>
       </div>
       
-      <div class="query_btn">
+      <div class="query_btn" v-if="false">
         <div @click="submit">查询</div>
       </div>
 
+      <br>
       <div class="table_item">
-        <div class="info_list">
-          <el-row>
-            <el-col :span="4">
-              <img style="width:60;height:60px" src="~@a/images/test.png" alt="">
-            </el-col>
-            <el-col :span="18" :offset="1">
-              <p style="font-size: 14px;line-height: 30px">刘德云 
-                <span style="float:right;font-size: 12px;">好评率：
-                  <span style="color:#ff6600;">100%</span>
-                </span>
-              </p>
-              <p>擅长领域：181平台答疑人员,企业运维答疑</p>
-              <p>应答时间：周一至周日 9:00 - 18:00</p>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="info_list">
-          <el-row>
-            <el-col :span="4">
-              <img style="width:60;height:60px" src="~@a/images/test.png" alt="">
-            </el-col>
-            <el-col :span="18" :offset="1">
-              <p style="font-size: 14px;line-height: 30px">刘德云 
-                <span style="float:right;font-size: 12px;">好评率：
-                  <span style="color:#ff6600;">100%</span>
-                </span>
-              </p>
-              <p>擅长领域：181平台答疑人员,企业运维答疑</p>
-              <p>应答时间：周一至周日 9:00 - 18:00</p>
-            </el-col>
-          </el-row>
-        </div>
-        <div class="info_list">
-          <el-row>
-            <el-col :span="4">
-              <img style="width:60;height:60px" src="~@a/images/test.png" alt="">
-            </el-col>
-            <el-col :span="18" :offset="1">
-              <p style="font-size: 14px;line-height: 30px">刘德云 
-                <span style="float:right;font-size: 12px;">好评率：
-                  <span style="color:#ff6600;">100%</span>
-                </span>
-              </p>
-              <p>擅长领域：181平台答疑人员,企业运维答疑</p>
-              <p>应答时间：周一至周日 9:00 - 18:00</p>
-            </el-col>
-          </el-row>
-        </div>
+          <div class="info_list">
+            <el-row>
+              <el-col :span="4">
+                <img style="width:60;height:60px" src="~@a/images/test.png" alt="">
+              </el-col>
+              <el-col :span="18" :offset="1">
+                <p style="font-size: 14px;line-height: 30px">刘德云 
+                  <span style="float:right;font-size: 12px;">好评率：
+                    <span style="color:#ff6600;">100%</span>
+                  </span>
+                </p>
+                <p>擅长领域：181平台答疑人员,企业运维答疑</p>
+                <p>应答时间：周一至周日 9:00 - 18:00 
+                  <i class="upload_icon el-icon-upload2" @click="clickBtn(11)"></i>
+                </p>
+              </el-col>
+            </el-row>
+          </div>
 
+          <!--附件上传 -->
+          <el-row v-show="true">
+              <el-upload
+                class="upload"
+                ref="fileUpload"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :before-upload="beforeUpload"
+                multiple
+                name="file"
+                :show-file-list="false"
+                :data="upload.data"
+                :on-success="success"
+                :on-error="error">
+              </el-upload>
+          </el-row>
       </div>
     </div>
     <!-- 省市区选择加隐藏背景 -->
@@ -205,58 +210,30 @@
 </template>
 <script>
 import cascadeMap from "@c/lib/cascadeMap.json"; //省市区
+import { aesEncrypt, Aes, noAes, setRsa, getRsa } from "@/assets/js/crypto.js";
+import { SHA256withECDSA } from "@/assets/js/sha256.js"; 
 
 export default {
   data() {
     return {
-      num:this.$route.query.num,
-      loginParams: {
-        checkList: [],
-        reason: '',
-        reason2: '',
-        policyNo: '', // 保单号
-        accidentProcess: '', // 经过
-        reporterName: '', // 报案人
-        accidentPlace: '', // 出险详细地址
-        province:'广东省',
-        city:'深圳市',
-        county:'宝安区',
-        accidentProvince: '', // 出险地点省
-        accidentCity: '', // 出险地点市
-        accidentDistrict: '', // 出险地点区县
-        accidentDate: '', // 出险时间
-        reportLossSum: '',
-        tell: ''
+      form: {
+          reportNo: '', // 报案号
+          policyNo: '', // 保单号
+          accidentProcess: '', // 经过
+          reporterName: '', // 报案人
+          accidentPlace: '', // 出险详细地址
+          caseStatus: '', // 0-已结案 1-已报案  2-已理算  6-已归档
+          province:'广东省',
+          city:'深圳市',
+          county:'宝安区',
+          accidentProvince: '', // 出险地点省
+          accidentCity: '', // 出险地点市
+          accidentDistrict: '', // 出险地点区县
+          accidentDate: '', // 出险时间【格式yyyy-mm-dd hh24:mi:ss】
+          endCaseAmountSum: '' //结案赔款金额
       },
-      options: [
-        {value: "A61",label: '火灾'}, 
-        {value: "A62",label: '爆炸'},
-        {value: "A63",label: '意外事故'}
-      ],
-      optionsTwo: [
-        {value: "N0160",label: '火灾'}, 
-        {value: "N0449",label: '火药爆炸'},
-        {value: "N0450",label: '瓦斯爆炸'},
-        {value: "N0451",label: '锅炉爆炸'},
-        {value: "N0452",label: '容器爆炸'},
-        {value: "N0453",label: '其他爆炸'}
-      ],
-      sudden: [
-        {value: "N0405",label: '物体打击'}, 
-        {value: "N0406",label: '车辆伤害'},
-        {value: "N0404",label: '机械伤害'},
-        {value: "N0454",label: '起重伤害'},
-        {value: "N0455",label: '触电'},
-        {value: "N0456",label: '淹溺'},
-        {value: "N0457",label: '灼烫'},
-        {value: "N0395",label: '高处坠落'},
-        {value: "N0458",label: '坍塌'},
-        {value: "N0459",label: '冒顶片帮'},
-        {value: "N0460",label: '透水'},
-        {value: "N0461",label: '放炮'},
-        {value: "N0462",label: '中毒和窒息'},
-        {value: "N0463",label: '其他伤害'}
-      ],
+      date: '', // 出险时间
+      enDdate: '', // 结案时间
       states: [
         {label: '已报案', id: '1'},
         {label: '定责中', id: '2'},
@@ -265,185 +242,166 @@ export default {
         {label: '审核中', id: '5'},
         {label: '已结案', id: '6'},
       ],
-      options1: [
-        {value: 1,label: '正常'}, 
-        {value: 0,label: '停用'}, 
-      ],
-      cascadeMap:cascadeMap.cascade,
+      cascadeMap: cascadeMap.cascade,
       loading: false,
       flag: true,
       show:false,
-      units:[
-        {label: '人民币', value: 'RMB'},
-        {label: '美元', value: '$'}
-      ],
-      tableData: [
-         {
-            url:'./test.png',
-            name:'中国人',
-            phone:'131111111',
-            gender: '男',
-            date: '2020-05-05',
-            number: '888',
-            id:'121212'
-          },
-         {
-            url:'./test.png',
-            name:'中国人',
-            phone:'131111111',
-            gender: '男',
-            date: '2020-05-05',
-            number: '888',
-            id:'121212'
+      upload: {
+          data: {
+              userId: '', // 操作人
+              reportNo: '', // 报案号
+              policyNo: '', // 保单号
+              uploadSource: '', // 上传来源：10: OPENAPI
+              uploadPersonType: '', // 上传人类型：02：客户 
+              claimInformationList: [ // 索赔资料附件
+                  {
+                      fileId: '', // 索赔资料附件(上传附件key)
+                      fileName: '', // 文件名(索赔资料名.后缀)
+                      bigGroupCode: '', // 大类代码
+                      shortGroupCode: '', // 小类代码
+                  }
+              ]
           }
-        ],
+      },
+      select: '',
+      input3: '',
+      params: {
+          reportNo: '91126054100000749167', // 报案号 
+          policyNo: '11126053900152598925', // 保单号  11000003900163541849
+      }
     };
   },
   created() {
+      SHA256withECDSA();
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
-    // 附件上传
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      console.log('file',file);
-      this.dialogVisible = true;
-    },
-    handleEdit(index, row) {
-       this.$router.push({ 
-            path:`/tenantAdd`,
-            query: { 
-               id: row.id,
+      queryList(){ 
+          let { $http, $api } = this;
+          const str = "QZWeg9F/6o6UYEguU7BvrU1paYTlJbTKoUW+9+igzUfxka56hc4+D+Vx9pSvT7UyWFJgLcWNyxOWO3dypcGO40wXd3b/qZEOeGqnY+PrNXs="
+          const url = '?access_token=705A993C3E0E4952A1690F7ED6E5A27C&request_id=queryCaseInfoList746515';
+          
+          const par = Aes(JSON.stringify(this.params));
+
+          $http.postNew($api.query_case + url, par).then(res=>{
+              console.log(111, res)
+          }).catch(req=>{
+
+          })
+      },
+      clickBtn(val){
+          console.log('234', val)
+
+          document.getElementsByClassName('el-upload__input')[0].click();
+      },
+      beforeUpload(file){
+          console.log('file', file)
+      },
+      success(res, file, fileList) {
+          console.log('res', res)
+          this.$refs.fileUpload.clearFiles(); // 清空文件
+      },
+      error(err, file, fileList) {
+          console.log('err', err)
+      },
+      choose(){
+        this.show=!this.show
+      },
+      onChangeProvince(a){
+        this.form.province = a.value;  
+        console.log(this.province)    
+      },
+      onChangeCity(a){
+        this.form.city = a.value;  
+        console.log(this.city)  
+      },
+      onChangeArea(a){
+        this.form.county = a.value;  
+        this.form.areaListvalue =this.form.province+','+this.form.city+','+this.form.county;
+        console.log("a-------------",this.county) 
+        
+        this.show=false
+      },     
+      submit(){   //保存
+        let { form,$http, $utils } = this;
+        form.accidentDate = $utils.timeFormat(this.date); // 出险时间
+        this.loading = true;
+        let url = this.$api.addHouse; 
+        $http.postNew(url,form)
+          .then(res=>{
+            this.loading = false;
+            if(this.num==1){
+              this.$message.success("保存成功")
+            }else{
+              this.$message.success("编辑成功")
             }
-        }) 
-    },
-    handleDelete(index, row) {
-        this.$confirm('确定删除?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message.success("删除成功")
-      }).catch(() => {});
-    },
-    handleChange(value) {
-      console.log(value);
-    },
-    choose(){
-      this.show=!this.show
-    },
-    onChangeProvince(a){
-      this.loginParams.province = a.value;  
-      console.log(this.province)    
-    },
-    onChangeCity(a){
-      this.loginParams.city = a.value;  
-      console.log(this.city)  
-    },
-    onChangeArea(a){
-      this.loginParams.county = a.value;  
-      this.loginParams.areaListvalue =this.loginParams.province+','+this.loginParams.city+','+this.loginParams.county;
-      console.log("a-------------",this.county) 
-       
-      this.show=false
-    },     
-    submit(){   //保存
-      let { loginParams,$http, $utils } = this;
-      if(!this.transmitOk()){
-        return
-      }
-      if(!this.flag){
-        return
-      }
-      this.flag = false;
-      this.loading = true;
-      let url = this.num==1? this.$api.addHouse :this.$api.editHouse; 
-      $http.postNew(url,loginParams)
-        .then(res=>{
-          this.loading = false;
-          if(this.num==1){
-            this.$message.success("保存成功")
-          }else{
-            this.$message.success("编辑成功")
+            this.$router.push({ path:'/rentResources'})
+          })
+          .catch(req=>{
+            this.loading= false;
+            this.flag = true;
+          })
+      },
+      getChange(){
+          if(this.form.business_type !=1){
+            this.form.houseType = ""
           }
-          this.$router.push({ path:'/rentResources'})
-        })
-        .catch(req=>{
-          this.loading= false;
-          this.flag = true;
-        })
-    },
-    transmitOk(){
-      if(!this.loginParams.house_resources_address){
-        this.$message.error("请填写地址")  
-        return
-      }
-      if(!this.loginParams.house_num){
-        this.$message.error("请填写房号")
-        return
-      }
-      if(!this.loginParams.floor){
-        this.$message.error("请填写楼层")
-        return
-      }
-      return true;
-    },
-    getChange(){
-      if(this.loginParams.business_type !=1){
-        this.loginParams.houseType = ""
-      }
-    },
-   
-    checkBusinessLicense(e, type) {
-      //不允许输入中文
-      this.loginParams[type] = this.$utils.formatNotChinese(e);
-    },
-    onlyNum(val,name){  //限制输入数字，其它的都不可以输入
-        val=val.replace(/[^\d]/g,'');
-        this.loginParams[name] = val;
-    }, 
-    ruleNum (val,name) { //限制输入数值
-        val = val.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1');  //清除“数字”和“.”以外的字符  
-        val = val.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符  
-        val = val.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的  
-        val = val.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
-        val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数  
-        if(val.indexOf(".")< 0 && val !=""){//以上已经过滤，此处控制的是如果没有小数点
-            val= parseFloat(val); 
-        }
-        this.addObj[name] = val;
-    },
-    ruleNum1(val,index,name){  //限制输入数字，小数，负数
-        val = val.replace(/[^\-?\d.]/g,'');
-        val = val.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的  
-        val = val.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
-        val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数 
-        this.invoiceAddForm.commodityList[index][name] = val;
-    }, 
-    ruleNum2(val,index,name){ //限制只可以输入数字，负数并且>0
-        val = val.replace(/[^\-?\d]|^[0]/g,'');
-        this.invoiceAddForm.commodityList[index][name] = val;
-    },  
-   
+      },
+      checkBusinessLicense(e, type) {
+        //不允许输入中文
+        this.form[type] = this.$utils.formatNotChinese(e);
+      },
+      onlyNum(val,name){  //限制输入数字，其它的都不可以输入
+          val=val.replace(/[^\d]/g,'');
+          this.form[name] = val;
+      }, 
+      ruleNum (val,name) { //限制输入数值
+          val = val.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1');  //清除“数字”和“.”以外的字符  
+          val = val.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符  
+          val = val.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的  
+          val = val.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
+          val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数  
+          if(val.indexOf(".")< 0 && val !=""){//以上已经过滤，此处控制的是如果没有小数点
+              val= parseFloat(val); 
+          }
+          this.addObj[name] = val;
+      },
+      ruleNum1(val,index,name){  //限制输入数字，小数，负数
+          val = val.replace(/[^\-?\d.]/g,'');
+          val = val.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的  
+          val = val.replace(".","$#$").replace(/\./g,"").replace("$#$","."); 
+          val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数 
+          this.invoiceAddForm.commodityList[index][name] = val;
+      }, 
+      ruleNum2(val,index,name){ //限制只可以输入数字，负数并且>0
+          val = val.replace(/[^\-?\d]|^[0]/g,'');
+          this.invoiceAddForm.commodityList[index][name] = val;
+      },  
+    
   }
 };
 </script>
 <style lang="scss" scoped>
+.label_ {
+    line-height: 30px;
+}
 .el-input__inner{
   line-height: 100px !important;
-
+}
+.upload_icon {
+    float: right;
+    color: #409EFF;
+    cursor: pointer;
 }
 .webApp {
-  background: #fff;
-  // padding: 0 0 20vw;
-  overflow-y: auto;
-  position: absolute;
-  // bottom: 50px;
-  top: 0px;
-  overflow: hidden;
+  // background: #fff;
+  // // padding: 0 0 20vw;
+  // overflow-y: auto;
+  // position: absolute;
+  // // bottom: 50px;
+  // top: 0px;
+  // overflow: hidden;
 
   .query_btn {
     margin-top: 20px;
